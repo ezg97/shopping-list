@@ -17,7 +17,7 @@ function updateList(obj){
     listView = listView.sort();
 
     //compare lists to find if they match
-    if(listCurrent.toString() != listView.toString()){
+    if(listCurrent.toString() !== listView.toString()){
         addItem(listCurrent.filter(e => !listView.includes(e)));
         removeItem(obj, listView.filter(e => !listCurrent.includes(e)));
     }
@@ -44,7 +44,7 @@ function addItem(array){
 }
 
 function removeItem(obj, array){
-    if(array == undefined || array.length == 0){
+    if(array === undefined || array.length === 0){
         return;
     }
     //remove the list element
@@ -55,19 +55,19 @@ $(function() {
     $("#js-shopping-list-form").submit(event => {
         event.preventDefault();
         //get the value entered and store into userInput
-        const userInput = $("#shopping-list-entry").val();
+        const userInput = $("#shopping-list-entry");
         //verify it doesn't exist in the list already
-        if(listCurrent.includes(userInput)){
+        if(listCurrent.includes($(userInput).val())){
             alert('Item has already been added to the list')
         }
-        else if((userInput && !userInput.trim()) || userInput==""){
+        else if(($(userInput).val() && !$(userInput).val().trim()) || $(userInput).val()===""){
             alert('Invald entry.');
         }
         else{
-            listCurrent.push(userInput);
+            listCurrent.push($(userInput).val());
             updateList(null);        
         }
-        
+        userInput.val('');
     });  
 
     //------------- Remove -------------
